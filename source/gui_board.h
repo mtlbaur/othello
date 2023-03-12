@@ -5,7 +5,7 @@
 
 #include "game_board.h"
 #include "gui_cfg.h"
-#include "gui_piece.h"
+#include "gui_disk.h"
 
 extern Othello::Game::Board board;
 extern Othello::Gui::Cfg cfg;
@@ -40,7 +40,7 @@ namespace Othello::Gui::Board {
                     }
                     for (int col = 0; col < 8; col++) {
                         ImGui::TableNextColumn();
-                        ImGui::Button(cfg.COL_LABELS[col], {cfg.pieceDiameter, cfg.edgeWidth});
+                        ImGui::Button(cfg.COL_LABELS[col], {cfg.diskDiameter, cfg.edgeWidth});
                     }
                     {
                         ImGui::TableNextColumn(); // top-right cell
@@ -53,7 +53,7 @@ namespace Othello::Gui::Board {
 
                         {
                             ImGui::TableNextColumn();
-                            ImGui::Button(cfg.ROW_LABELS[row], {cfg.edgeWidth, cfg.pieceDiameter});
+                            ImGui::Button(cfg.ROW_LABELS[row], {cfg.edgeWidth, cfg.diskDiameter});
                         }
                         for (int col = 0; col < 8; col++) {
                             ImGui::TableNextColumn();
@@ -70,11 +70,11 @@ namespace Othello::Gui::Board {
                                 }
                             }
 
-                            Piece::draw(board.side(row, col), drawList, {x + cfg.pieceRadius, y + cfg.pieceRadius}, cfg.pieceRadius);
+                            Disk::draw(board.side(row, col), drawList, {x + cfg.diskRadius, y + cfg.diskRadius}, cfg.diskRadius);
                         }
                         {
                             ImGui::TableNextColumn();
-                            ImGui::Button(cfg.ROW_LABELS[row], {cfg.edgeWidth, cfg.pieceDiameter});
+                            ImGui::Button(cfg.ROW_LABELS[row], {cfg.edgeWidth, cfg.diskDiameter});
                         }
                     }
                 }
@@ -85,7 +85,7 @@ namespace Othello::Gui::Board {
                     }
                     for (int col = 0; col < 8; col++) {
                         ImGui::TableNextColumn();
-                        ImGui::Button(cfg.COL_LABELS[col], {cfg.pieceDiameter, cfg.edgeWidth});
+                        ImGui::Button(cfg.COL_LABELS[col], {cfg.diskDiameter, cfg.edgeWidth});
                     }
                     {
                         ImGui::TableNextColumn(); // bottom-right cell

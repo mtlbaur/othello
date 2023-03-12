@@ -1,9 +1,7 @@
 #include "game_board.h"
 
 namespace Othello::Game {
-    Board::Board() {
-        reset();
-    };
+    Board::Board() { reset(); };
 
     void Board::reset() {
         turnSide = Side::BLACK;
@@ -25,9 +23,9 @@ namespace Othello::Game {
     Move Board::place(int i, int j) {
         Pos pos{i, j};
 
-        // if the place-position is empty AND the number of placement-turned-pieces is greater than zero
-        if (empty(pos) && turnPieces(pos, turnSide) > 0) {
-            // place turn-side piece in the placement-position
+        // if the place-position is empty AND the number of placement-turned-disks is greater than zero
+        if (empty(pos) && turnDisks(pos, turnSide) > 0) {
+            // place turn-side disk in the placement-position
             board[pos.i][pos.j] = turnSide;
 
             int oppositeSide = switchSides(turnSide);
@@ -47,12 +45,10 @@ namespace Othello::Game {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     switch (board[i][j]) {
-                        using enum Side;
-
-                        case BLACK:
+                        case Side::BLACK:
                             stats.black++;
                             break;
-                        case WHITE:
+                        case Side::WHITE:
                             stats.white++;
                             break;
                         default:
@@ -64,7 +60,7 @@ namespace Othello::Game {
             return Move::END;
         }
 
-        // if the place-position wasn't empty OR the number of turned pieces from placement was zero, then it is an invalid move
+        // if the place-position wasn't empty OR the number of turned disks from placement was zero, then it is an invalid move
         return Move::INVALID;
     }
 
@@ -84,25 +80,25 @@ namespace Othello::Game {
         return (side & 1) + 1;
     }
 
-    int Board::turnPieces(Pos pos, int turnSide) {
+    int Board::turnDisks(Pos pos, int turnSide) {
         int turned       = 0;
         int oppositeSide = switchSides(turnSide);
 
         for (const Pos& shift : SHIFTS) { // for all valid directions: N, NE, E, SE, S, SW, W, NW
-            [&](Pos pos, const Pos& shift) {
+            [&](Pos pos) {
                 // take one step in the current direction
                 pos += shift;
 
                 std::vector<Pos> found;
 
-                // while there are pieces of the opposite side's color in the current direction, store their board positions
+                // while there are disks of the opposite side's color in the current direction, store their board positions
                 while (valid(pos) && board[pos.i][pos.j] == oppositeSide) {
                     found.emplace_back(pos);
                     pos += shift;
                 }
 
-                // if there is an ending piece of the turn side's color, turn any opposite side pieces that lie between the starting position and the ending piece
-                // NOTE: the number of turned pieces can be zero if there were no bounded opposite side pieces
+                // if there is an ending disk of the turn side's color, turn any opposite side disks that lie between the starting position and the ending disk
+                // NOTE: the number of turned disks can be zero if there were no bounded opposite side disks
                 if (valid(pos) && board[pos.i][pos.j] == turnSide) {
                     for (Pos p : found) {
                         board[p.i][p.j] = turnSide;
@@ -110,10 +106,10 @@ namespace Othello::Game {
 
                     turned += found.size();
                 }
-            }(pos, shift);
+            }(pos);
         }
 
-        // return the total number of turned pieces
+        // return the total number of turned disks
         return turned;
     }
 
@@ -122,16 +118,16 @@ namespace Othello::Game {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                for (const Pos& shift : SHIFTS) { // for all valid directions: N, NE, E, SE, S, SW, W, NW
-                    Pos pos{i, j};
+                Pos pos{i, j};
 
-                    if ([&](Pos pos, const Pos& shift) -> bool { // if the turn side has a possible move...
+                for (const Pos& shift : SHIFTS) { // for all valid directions: N, NE, E, SE, S, SW, W, NW
+                    if ([&](Pos pos) -> bool {    // if the turn side has a possible move...
                             if (!empty(pos)) return false;
 
                             // take one step in the current direction
                             pos += shift;
 
-                            // if there is no piece of the opposite color (adjacent to the starting position), the turn side has no possible move
+                            // if there is no disk of the opposite color (adjacent to the starting position), the turn side has no possible move
                             if (!valid(pos) || !(board[pos.i][pos.j] == oppositeSide)) {
                                 return false;
                             }
@@ -139,18 +135,18 @@ namespace Othello::Game {
                             // take a second step in the current direction
                             pos += shift;
 
-                            // while there are additional pieces of the opposite color in the current direction, follow them
+                            // while there are additional disks of the opposite color in the current direction, follow them
                             while (valid(pos) && board[pos.i][pos.j] == oppositeSide) {
                                 pos += shift;
                             }
 
-                            // if there is an ending piece of the turn side's color, that follows at least one piece of the opposite color, the turn side has a possible move
+                            // if there is an ending disk of the turn side's color, that follows at least one disk of the opposite color, the turn side has a possible move
                             if (valid(pos) && board[pos.i][pos.j] == turnSide) {
                                 return true;
                             }
 
                             return false;
-                        }(pos, shift)) { // ...return true
+                        }(pos)) { // ...return true
                         return true;
                     }
                 }

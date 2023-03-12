@@ -102,11 +102,6 @@ inline void displayGui() {
         Othello::Gui::Board::display();
         cfg.window->display();
         Othello::Gui::GameEnd::display();
-
-        // { // IMGUI DEMO WINDOW
-        //     static bool demo = true;
-        //     if (demo) ImGui::ShowDemoWindow(&demo);
-        // }
     }
 
     ImGui::End();

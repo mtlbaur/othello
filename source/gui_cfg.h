@@ -26,16 +26,16 @@ namespace Othello::Gui {
 
             Cfg* cfg;
 
-            int pieceSegments    = 64;
-            int pieceBorderWidth = 2;
-            int pieceRadius      = 32;
+            int diskSegments    = 64;
+            int diskBorderWidth = 2;
+            int diskRadius      = 32;
 
             float edgeWidthMult = 0.34f;
 
             int targetFPS = 150;
 
-            bool pieceBlackBorder = false;
-            bool pieceWhiteBorder = false;
+            bool diskBlackBorder = false;
+            bool diskWhiteBorder = false;
 
           public:
             Window(Cfg& cfg);
@@ -44,16 +44,16 @@ namespace Othello::Gui {
 
             template <class Archive>
             void serialize(Archive& a, const unsigned v) {
-                a& pieceSegments;
-                a& pieceBorderWidth;
-                a& pieceRadius;
+                a& diskSegments;
+                a& diskBorderWidth;
+                a& diskRadius;
 
                 a& edgeWidthMult;
 
                 a& targetFPS;
 
-                a& pieceBlackBorder;
-                a& pieceWhiteBorder;
+                a& diskBlackBorder;
+                a& diskWhiteBorder;
             }
         };
 
@@ -65,11 +65,11 @@ namespace Othello::Gui {
         const std::array<const char*, 8> ROW_LABELS{"1", "2", "3", "4", "5", "6", "7", "8"};
         const std::array<const char*, 8> COL_LABELS{"a", "b", "c", "d", "e", "f", "g", "h"};
 
-        int pieceSegments = 1;
+        int diskSegments = 1;
 
-        float pieceBorderWidth = 1.0f;
-        float pieceRadius      = 1.0f;
-        float pieceDiameter    = 1.0f;
+        float diskBorderWidth = 1.0f;
+        float diskRadius      = 1.0f;
+        float diskDiameter    = 1.0f;
 
         float edgeWidth = 1.0f;
 
@@ -79,10 +79,10 @@ namespace Othello::Gui {
         double targetFPS = 1.0;
 
         struct {
-            bool cfgWindow        = false;
-            bool gameEndWindow    = false;
-            bool pieceBlackBorder = false;
-            bool pieceWhiteBorder = false;
+            bool cfgWindow       = false;
+            bool gameEndWindow   = false;
+            bool diskBlackBorder = false;
+            bool diskWhiteBorder = false;
         } enabled;
 
         Cfg();

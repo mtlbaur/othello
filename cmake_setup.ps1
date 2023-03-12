@@ -1,5 +1,5 @@
-rm bin
-rm build
+rm -r bin
+rm -r build
 mkdir bin
 cd bin
 mkdir debug

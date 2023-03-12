@@ -73,9 +73,10 @@ namespace Othello::Gui {
             {
                 glfwPollEvents();
 
-                static int sizeX = 0, sizeY = 0;
+                static int sizeX = 0;
+                static int sizeY = 0;
 
-                glfwGetFramebufferSize(glfw.window, &sizeX, &sizeX);
+                glfwGetFramebufferSize(glfw.window, &sizeX, &sizeY);
                 glViewport(0, 0, sizeX, sizeY);
                 glClear(GL_COLOR_BUFFER_BIT);
             }

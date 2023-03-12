@@ -41,7 +41,7 @@ namespace Othello::Game {
         bool valid(Pos p);
         bool empty(Pos p);
         int switchSides(int side);
-        int turnPieces(Pos pos, int turnSide);
+        int turnDisks(Pos pos, int turnSide);
         bool hasPossibleMove(int turnSide);
     };
 } // namespace Othello::Game

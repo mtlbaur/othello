@@ -15,13 +15,13 @@ namespace Othello::Gui {
 
                 bool adjusted = false;
 
-                ImGui::Text("Piece");
-                adjusted |= ImGui::DragInt("Segments", &pieceSegments, 0.1f, 3, 128, IF, SF);
-                adjusted |= ImGui::DragInt("Border Width", &pieceBorderWidth, 0.1f, 1, 6, IF, SF);
-                adjusted |= ImGui::DragInt("Radius", &pieceRadius, 0.1f, 28, 100, IF, SF);
-                adjusted |= ImGui::Checkbox("Black Border", &pieceBlackBorder);
+                ImGui::Text("Disk");
+                adjusted |= ImGui::DragInt("Segments", &diskSegments, 0.1f, 3, 128, IF, SF);
+                adjusted |= ImGui::DragInt("Border Width", &diskBorderWidth, 0.1f, 1, 6, IF, SF);
+                adjusted |= ImGui::DragInt("Radius", &diskRadius, 0.1f, 28, 100, IF, SF);
+                adjusted |= ImGui::Checkbox("Black Border", &diskBlackBorder);
                 ImGui::SameLine();
-                adjusted |= ImGui::Checkbox("White Border", &pieceWhiteBorder);
+                adjusted |= ImGui::Checkbox("White Border", &diskWhiteBorder);
 
                 ImGui::Separator();
 
@@ -59,19 +59,19 @@ namespace Othello::Gui {
     }
 
     void Cfg::update() {
-        enabled.pieceBlackBorder = window->pieceBlackBorder;
-        enabled.pieceWhiteBorder = window->pieceWhiteBorder;
+        enabled.diskBlackBorder = window->diskBlackBorder;
+        enabled.diskWhiteBorder = window->diskWhiteBorder;
 
-        pieceSegments    = window->pieceSegments;
-        pieceBorderWidth = window->pieceBorderWidth;
-        pieceRadius      = window->pieceRadius;
-        pieceDiameter    = 2 * pieceRadius;
+        diskSegments    = window->diskSegments;
+        diskBorderWidth = window->diskBorderWidth;
+        diskRadius      = window->diskRadius;
+        diskDiameter    = 2 * diskRadius;
 
-        edgeWidth = pieceDiameter * window->edgeWidthMult;
+        edgeWidth = diskDiameter * window->edgeWidthMult;
 
         targetFPS = window->targetFPS;
 
-        cellDimensions   = {pieceDiameter, pieceDiameter};
+        cellDimensions   = {diskDiameter, diskDiameter};
         cornerDimensions = {edgeWidth, edgeWidth};
     }
 

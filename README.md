@@ -3,7 +3,7 @@ This program simulates Othello:
 - On game end a window with the score and a new game button will appear.
 - A config menu can be accessed via the `Esc` key.
     - Options:
-        - Board piece:
+        - Board disks:
             - Segments (how smooth the circles are).
             - Size.
             - Border toggle.
